@@ -1,5 +1,5 @@
 
-const EventEmitter = require('events');
+const EventEmitter = require('./events');
 
 
 // Diferencia de temperatura permitida entre la temperatura real y la ideal.

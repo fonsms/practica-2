@@ -22,11 +22,11 @@ const programador  = new Programador([
     { hora: "08:30",
         temperatura: 18
     },
-    { hora: "17:58",
+    { hora: "18:23",
         temperatura: 30
     },
-    { hora: "17:59",
-        temperatura: 20
+    { hora: "18:24",
+        temperatura: 10
     }
 ]);
 
