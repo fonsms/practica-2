@@ -3,41 +3,16 @@ const EventEmitter = require('events');
 const later = require('later');
 class Programador  extends EventEmitter {
 
-    constructor(habitacion) {
+    constructor(arrayconfig) {
         super();
+        later.date.localTime();
 
-        this.habitacion = habitacion;
-
-        // Temperatura ideal programada:
-        this.temperaturaIdeal = 16;
-
-        // para cancelar el temporizador setInterval:
-        this.intervalId = null;
-    }
-
-    indicarTemperaturaIdeal(temperaturaIdeal) {
-        this.temperaturaIdeal = temperaturaIdeal;
-    }
-
-    encender() {
-        console.log('Encendiendo el termostato.');
-        clearInterval(this.intervalId);
-        this.intervalId = setInterval(() => {
-            this.emit('tic', this.habitacion.temperatura);
-
-            if (this.habitacion.temperatura > this.temperaturaIdeal+MARGEN_ERROR) {
-                this.emit('muchocalor');
-            } else if (this.habitacion.temperatura < this.temperaturaIdeal-MARGEN_ERROR) {
-                this.emit('muchofrio');
-            }
-        }, 500);
-    }
-
-    apagar() {
-        console.log('Apagando el termostato.');
-        clearInterval(this.intervalId);
-    }
+arrayconfig.forEach(({hora, temperatura})=> {
+        const sched = later.parse.text(`at ${hora}`);
+        later.setInterval(() =>	{this.emit('ideal', temperatura);
+}, sched);
+})
 }
-
+}
 exports = module.exports = Programador;
 
